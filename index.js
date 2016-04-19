@@ -5,7 +5,7 @@ var zomato = require('./zomato.js');
 var custom = require('./custom.js');
 var ordr = require('./ordr.js');
 
-var providers = [zomato, custom, ordr];
+var providers = [zomato, ordr];
 
 var settings = {
     token: config.token,
@@ -32,7 +32,7 @@ function sendResponse(id, data, title) {
     bot.postMessage(id, res);
 }
 
-function process(msg, id) {
+function processMessage(msg, id) {
     console.log('received: ' + msg);
 
     switch (msg) {
@@ -49,14 +49,25 @@ function process(msg, id) {
             break;
         case "about":
             bot.postMessage(id, "Lunchbuddy bot by *Igor Kulman*");
-            break;       
+            break;
+
+        case "all":
+          providers.forEach(function (provider) {
+            provider.restaurants().forEach(function (restaurant){
+              var msg = restaurant
+              provider.get(msg, function(data) {
+                  sendResponse(id, data, provider.name(msg));
+              });
+            });
+          });
+          break;
         default:
-            
+
             for (var i=0;i<providers.length;++i) {
                 if (providers[i].handles(msg)) {
-                    providers[i].get(msg, (function(data) {
+                    providers[i].get(msg, function(data) {
                         sendResponse(id, data, providers[i].name(msg));
-                    }));
+                    });
                     return;
                 }
             }
@@ -71,14 +82,14 @@ bot.on('start', function() {
 });
 
 bot.on('message', function(data) {
-    // all ingoing events https://api.slack.com/rtm 
+    // all ingoing events https://api.slack.com/rtm
     if (data.type == "message" && data.text.startsWith('<@' + bot.self.id + '>:')) {
         var msg = data.text.replace('<@' + bot.self.id + '>: ', '');
-        process(msg, data.channel);
+        processMessage(msg, data.channel);
     }
 
     if (data.type == "message" && data.channel.startsWith('D') && !data.bot_id) {
-        process(data.text, data.channel);
+        processMessage(data.text, data.channel);
     }
 
 });

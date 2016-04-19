@@ -1,0 +1,26 @@
+{
+  "restaurants":[
+    {
+      "id":16505986,
+      "name": "U Staré Pošty",
+      "keyword": "posta"
+    }, {
+      "id":16506657,
+      "name": "Pizzeria Garden Václavka",
+      "keyword": "vaclavka"
+    },
+    {
+      "id":16506491,
+      "name": "Soup in the city - Fusion Prague",
+      "keyword": "polivka"
+    },{
+      "id":16505911,
+      "name": "El Pueblo",
+      "keyword": "mexicka"
+    },{
+      "id":16521607,
+      "name": "Pepe Lopez",
+      "keyword": "pepe"
+    }
+  ]
+}
