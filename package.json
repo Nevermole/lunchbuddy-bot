@@ -5,7 +5,8 @@
   "main": "index.js",
   "dependencies": {
     "cheerio": "^0.20.0",
-    "slackbots": "^0.5.1"
+    "slackbots": "^0.5.1",
+    "node-schedule": "~1.1.0"
   },
   "devDependencies": {},
   "scripts": {

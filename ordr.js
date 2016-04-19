@@ -49,7 +49,7 @@ function getMenu(cityId, callback) {
 
 module.exports = {
 	handles: function(restaurant){
-		return restaurant=="ordr";
+		return restaurant === "ordr";
 	},
 
 	restaurants: function(){

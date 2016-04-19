@@ -21,7 +21,7 @@ function gurmet(apiKey, id, callback) {
 			});
 			res.on("end", function() {
 				var j = JSON.parse(data);
-				if (j.daily_menus.length == 0) {
+				if (j.daily_menus == null || j.daily_menus.length == 0) {
 					callback([]);
 					return;
 				}
